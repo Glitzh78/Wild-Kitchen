@@ -8,9 +8,10 @@ interface GameCardProps {
   selected?: boolean;
   disabled?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  assignment?: string; // Tambahan prop untuk menampilkan hasil transformasi
 }
 
-export const GameCard: React.FC<GameCardProps> = ({ card, onClick, selected, disabled, size = 'md' }) => {
+export const GameCard: React.FC<GameCardProps> = ({ card, onClick, selected, disabled, size = 'md', assignment }) => {
   const isOrder = card.type === 'ORDER';
   const isIngredient = card.type === 'INGREDIENT';
   const isWild = card.type === 'WILD';
@@ -57,6 +58,12 @@ export const GameCard: React.FC<GameCardProps> = ({ card, onClick, selected, dis
           {isOrder ? (card as OrderCard).class[0] : isIngredient ? (card as IngredientCard).rank : 'W'}
         </span>
       </div>
+
+      {assignment && (
+        <div className="absolute top-2 left-2 bg-yellow-500 text-black px-1.5 py-0.5 rounded text-[8px] font-black uppercase animate-pulse shadow-lg">
+          AS: {assignment}
+        </div>
+      )}
 
       <div className="flex-1 p-2 flex flex-col bg-gradient-to-b from-[#252525] to-[#151515] border-t border-white/10">
         <div className="font-black uppercase text-center bangers tracking-tight text-sm mb-1 line-clamp-1">

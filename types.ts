@@ -16,6 +16,7 @@ export interface WildCard {
   effect: string;
   description: string;
   emoji: string;
+  assignedIngredient?: string; // Menyimpan bahan yang dipilih saat ditransformasi
 }
 
 export interface OrderCard {
@@ -40,6 +41,7 @@ export interface Player {
   score: number;
   isStunned: boolean;
   isAi: boolean;
+  hasMulliganed: boolean;
   cookingSlot: {
     order: OrderCard | null;
     tapsDone: number;
