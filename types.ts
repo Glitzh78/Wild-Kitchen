@@ -16,7 +16,7 @@ export interface WildCard {
   effect: string;
   description: string;
   emoji: string;
-  assignedIngredient?: string; // Menyimpan bahan yang dipilih saat ditransformasi
+  assignedIngredient?: string;
 }
 
 export interface OrderCard {
@@ -29,6 +29,7 @@ export interface OrderCard {
   tapsRequired: number;
   origin: string;
   emoji: string;
+  lockedBy?: number; // ID player yang lagi masak ini
 }
 
 export type Card = IngredientCard | WildCard;
@@ -41,23 +42,20 @@ export interface Player {
   score: number;
   isStunned: boolean;
   isAi: boolean;
-  hasMulliganed: boolean;
+  drawCooldown: number; // sisa detik cooldown
   cookingSlot: {
     order: OrderCard | null;
     tapsDone: number;
   };
 }
 
-export type GamePhase = 'LOBBY' | 'DRAW' | 'ACTION' | 'TAPPING' | 'AI_THINKING';
-
 export interface GameState {
   players: Player[];
-  currentPlayerIndex: number;
   drawPile: Card[];
   orderDeck: OrderCard[];
   activeOrders: OrderCard[];
-  phase: GamePhase;
   message: string;
   winner: Player | null;
   isAiMode: boolean;
+  gameStarted: boolean;
 }
