@@ -6,8 +6,7 @@ export interface IngredientCard {
   name: string;
   type: 'INGREDIENT';
   rank: 'D' | 'C' | 'B' | 'A' | 'S';
-  imageUrl: string;
-  artPrompt: string;
+  emoji: string;
 }
 
 export interface WildCard {
@@ -16,8 +15,7 @@ export interface WildCard {
   type: 'WILD';
   effect: string;
   description: string;
-  imageUrl: string;
-  artPrompt: string;
+  emoji: string;
 }
 
 export interface OrderCard {
@@ -28,9 +26,8 @@ export interface OrderCard {
   ingredients: string[];
   points: number;
   tapsRequired: number;
-  imageUrl: string;
   origin: string;
-  artPrompt: string;
+  emoji: string;
 }
 
 export type Card = IngredientCard | WildCard;
@@ -48,7 +45,7 @@ export interface Player {
   };
 }
 
-export type GamePhase = 'DRAW' | 'ACTION' | 'COOK' | 'TAPPING' | 'INITIALIZING';
+export type GamePhase = 'DRAW' | 'ACTION' | 'COOK' | 'TAPPING';
 
 export interface GameState {
   players: Player[];
