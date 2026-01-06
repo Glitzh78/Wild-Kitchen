@@ -29,7 +29,7 @@ export interface OrderCard {
   tapsRequired: number;
   origin: string;
   emoji: string;
-  lockedBy?: number; // ID player yang lagi masak ini
+  lockedBy?: number;
 }
 
 export type Card = IngredientCard | WildCard;
@@ -42,7 +42,7 @@ export interface Player {
   score: number;
   isStunned: boolean;
   isAi: boolean;
-  drawCooldown: number; // sisa detik cooldown
+  drawCooldown: number;
   cookingSlot: {
     order: OrderCard | null;
     tapsDone: number;
@@ -58,4 +58,6 @@ export interface GameState {
   winner: Player | null;
   isAiMode: boolean;
   gameStarted: boolean;
+  isHost: boolean;
+  peerId?: string;
 }
