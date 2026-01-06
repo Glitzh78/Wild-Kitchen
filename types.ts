@@ -39,13 +39,14 @@ export interface Player {
   cookedDishes: OrderCard[];
   score: number;
   isStunned: boolean;
+  isAi: boolean;
   cookingSlot: {
     order: OrderCard | null;
     tapsDone: number;
   };
 }
 
-export type GamePhase = 'DRAW' | 'ACTION' | 'COOK' | 'TAPPING';
+export type GamePhase = 'LOBBY' | 'DRAW' | 'ACTION' | 'TAPPING' | 'AI_THINKING';
 
 export interface GameState {
   players: Player[];
@@ -56,4 +57,5 @@ export interface GameState {
   phase: GamePhase;
   message: string;
   winner: Player | null;
+  isAiMode: boolean;
 }
