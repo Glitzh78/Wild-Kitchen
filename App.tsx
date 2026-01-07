@@ -10,68 +10,79 @@ const INITIAL_HAND_SIZE = 4;
 const DRAW_COOLDOWN_MS = 3000;
 
 const Logo = () => (
-  <div className="relative w-96 h-96 flex items-center justify-center animate-bounce-slow">
+  <div className="relative w-[400px] h-[400px] flex items-center justify-center animate-bounce-slow">
     <svg viewBox="0 0 400 400" className="w-full h-full drop-shadow-2xl">
-      {/* 1. Chef Hat (Red Outline) - Positioned at the very top */}
-      <g transform="translate(110, 30) scale(0.9)">
+      {/* 1. CHEF HAT (Top) */}
+      <g transform="translate(130, 20) scale(0.8) rotate(-5)">
         <path 
           d="M20 100 C20 40, 50 20, 90 20 C130 20, 160 40, 160 100 L160 130 L20 130 Z" 
           fill="none" 
           stroke="#9A1B1B" 
-          strokeWidth="10" 
+          strokeWidth="12" 
           strokeLinecap="round"
         />
         <path 
           d="M35 130 Q35 100, 60 100 T90 100 T120 100 T145 130" 
           fill="none" 
           stroke="#9A1B1B" 
-          strokeWidth="8" 
+          strokeWidth="10" 
         />
       </g>
       
-      {/* 2. Main Red Circle (The Base) */}
-      <circle cx="200" cy="230" r="105" fill="#9A1B1B" />
-      <circle cx="200" cy="230" r="98" fill="none" stroke="#631111" strokeWidth="2" strokeDasharray="6,4" />
+      {/* 2. MAIN RED CIRCLE */}
+      <circle cx="200" cy="210" r="105" fill="#9A1B1B" />
+      <circle cx="200" cy="210" r="95" fill="none" stroke="#631111" strokeWidth="2" strokeDasharray="8,5" />
       
-      {/* 3. Crossed Spoon & Fork (Yellow/Gold) */}
-      <g transform="translate(200, 230)">
-        {/* Spoon (Head top-left, Handle bottom-right) */}
+      {/* 3. SPOON & FORK (Crossed) */}
+      <g transform="translate(200, 210)">
+        {/* Spoon: Head Top-Left, Handle Bottom-Right */}
         <g transform="rotate(-45)">
-          <path d="M-8 10 L-8 80 Q-8 95, 0 95 Q8 95, 8 80 L8 10 Z" fill="#F3CD57" />
-          <ellipse cx="0" cy="-25" rx="25" ry="40" fill="#F3CD57" />
+          <path d="M-8 0 L-8 90 Q-8 105, 0 105 Q8 105, 8 90 L8 0 Z" fill="#F3CD57" />
+          <ellipse cx="0" cy="-35" rx="28" ry="45" fill="#F3CD57" />
         </g>
-        {/* Fork (Head top-right, Handle bottom-left) */}
+        {/* Fork: Head Top-Right, Handle Bottom-Left */}
         <g transform="rotate(45)">
-          <path d="M-8 10 L-8 80 Q-8 95, 0 95 Q8 95, 8 80 L8 10 Z" fill="#F3CD57" />
-          <path d="M-20 -40 L-20 0 L20 0 L20 -40 L12 -40 L12 -15 L4 -15 L4 -40 L-4 -40 L-4 -15 L-12 -15 L-12 -40 Z" fill="#F3CD57" />
+          <path d="M-8 0 L-8 90 Q-8 105, 0 105 Q8 105, 8 90 L8 0 Z" fill="#F3CD57" />
+          <path d="M-22 -45 L-22 0 L22 0 L22 -45 L14 -45 L14 -15 L6 -15 L6 -45 L-6 -45 L-6 -15 L-14 -15 L-14 -45 Z" fill="#F3CD57" />
         </g>
       </g>
 
-      {/* 4. Tomato (On the right edge) */}
-      <g className="animate-float" transform="translate(325, 200)">
-        <circle cx="0" cy="0" r="38" fill="#D32F2F" />
-        <path d="M0 -38 L-12 -25 M0 -38 L12 -25 M0 -38 L0 -20" stroke="#2E7D32" strokeWidth="8" strokeLinecap="round" />
-        <ellipse cx="18" cy="-12" rx="10" ry="14" fill="white" fillOpacity="0.3" />
+      {/* 4. TOMATO (Right Side) */}
+      <g className="animate-float" transform="translate(340, 180) rotate(15)">
+        <circle cx="0" cy="0" r="40" fill="#D32F2F" />
+        {/* Leaves */}
+        <path d="M0 -40 L-15 -25 M0 -40 L15 -25 M0 -40 L0 -20" stroke="#2E7D32" strokeWidth="10" strokeLinecap="round" />
+        {/* Highlight */}
+        <ellipse cx="20" cy="-15" rx="12" ry="18" fill="white" fillOpacity="0.3" />
       </g>
 
-      {/* 5. Egg (Bottom left with speed lines) */}
-      <g className="animate-float-delayed" transform="translate(75, 340)">
-        <ellipse cx="0" cy="0" rx="38" ry="32" fill="#FFB74D" />
-        <ellipse cx="-12" cy="-12" rx="12" ry="18" fill="white" fillOpacity="0.4" />
-        {/* Speed lines extending to the right */}
-        <line x1="45" y1="-15" x2="95" y2="-15" stroke="white" strokeWidth="4" strokeLinecap="round" strokeOpacity="0.5" />
-        <line x1="55" y1="5" x2="105" y2="5" stroke="white" strokeWidth="4" strokeLinecap="round" strokeOpacity="0.5" />
-        <line x1="50" y1="25" x2="90" y2="25" stroke="white" strokeWidth="4" strokeLinecap="round" strokeOpacity="0.5" />
+      {/* 5. EGG (Bottom Left Side) */}
+      <g className="animate-float-delayed" transform="translate(60, 320)">
+        <ellipse cx="0" cy="0" rx="40" ry="35" fill="#FFB74D" />
+        <ellipse cx="-15" cy="-15" rx="12" ry="20" fill="white" fillOpacity="0.4" />
+        {/* Speed lines */}
+        <line x1="50" y1="-10" x2="110" y2="-10" stroke="white" strokeWidth="4" strokeLinecap="round" strokeOpacity="0.4" />
+        <line x1="55" y1="10" x2="115" y2="10" stroke="white" strokeWidth="4" strokeLinecap="round" strokeOpacity="0.4" />
+        <line x1="50" y1="30" x2="100" y2="30" stroke="white" strokeWidth="4" strokeLinecap="round" strokeOpacity="0.4" />
       </g>
 
-      {/* 6. Curved Text 'WILD KITCHEN' */}
+      {/* 6. TEXT PATHS (Separate for Left and Right) */}
       <defs>
-        {/* Adjusted path to ensure text is centered above the circle without overlapping */}
-        <path id="textCurve" d="M 60,210 A 140,140 0 0,1 340,210" />
+        {/* Left Side Path for "WILD" */}
+        <path id="pathWild" d="M 60,320 A 150,150 0 0,1 120,100" />
+        {/* Right Side Path for "KITCHEN" */}
+        <path id="pathKitchen" d="M 280,100 A 150,150 0 0,1 340,320" />
       </defs>
-      <text fill="#9A1B1B" className="bangers" style={{ fontSize: '48px', fontWeight: '900', letterSpacing: '4px' }}>
-        <textPath href="#textCurve" startOffset="50%" textAnchor="middle">
-          WILD KITCHEN
+
+      <text fill="#9A1B1B" className="bangers" style={{ fontSize: '54px', fontWeight: '900' }}>
+        <textPath href="#pathWild" startOffset="50%" textAnchor="middle">
+          WILD
+        </textPath>
+      </text>
+
+      <text fill="#9A1B1B" className="bangers" style={{ fontSize: '54px', fontWeight: '900' }}>
+        <textPath href="#pathKitchen" startOffset="50%" textAnchor="middle">
+          KITCHEN
         </textPath>
       </text>
     </svg>
