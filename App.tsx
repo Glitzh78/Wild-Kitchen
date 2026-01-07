@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import Peer, { DataConnection } from 'peerjs';
 import { GameState, Player, Card, OrderCard, WildCard } from './types';
@@ -11,63 +12,62 @@ const DRAW_COOLDOWN_MS = 3000;
 const Logo = () => (
   <div className="relative w-80 h-80 flex items-center justify-center animate-bounce-slow">
     <svg viewBox="0 0 400 400" className="w-full h-full drop-shadow-2xl">
-      {/* Chef Hat Outline */}
-      <path 
-        d="M130 150 C130 100, 160 80, 200 80 C240 80, 270 100, 270 150 L270 170 L130 170 Z" 
-        fill="none" 
-        stroke="#9A1B1B" 
-        strokeWidth="12" 
-        strokeLinecap="round"
-      />
-      <path 
-        d="M140 170 Q140 140, 160 140 T200 140 T240 140 T260 170" 
-        fill="none" 
-        stroke="#9A1B1B" 
-        strokeWidth="10" 
-      />
+      {/* Chef Hat - Background Layer */}
+      <g transform="translate(60, 40) rotate(-15)">
+        <path 
+          d="M40 80 C40 30, 80 10, 120 10 C160 10, 200 30, 200 80 L200 110 L40 110 Z" 
+          fill="none" 
+          stroke="#9A1B1B" 
+          strokeWidth="10" 
+          strokeLinecap="round"
+        />
+        <path 
+          d="M55 110 Q55 80, 80 80 T120 80 T160 80 T185 110" 
+          fill="none" 
+          stroke="#9A1B1B" 
+          strokeWidth="8" 
+        />
+      </g>
       
       {/* Main Red Circle */}
-      <circle cx="200" cy="240" r="100" fill="#9A1B1B" />
-      <circle cx="200" cy="240" r="92" fill="none" stroke="#631111" strokeWidth="2" strokeDasharray="5,5" />
+      <circle cx="200" cy="220" r="100" fill="#9A1B1B" />
+      <circle cx="200" cy="220" r="92" fill="none" stroke="#631111" strokeWidth="2" strokeDasharray="5,5" />
       
       {/* Crossed Fork & Spoon */}
-      <g transform="translate(200, 240) rotate(-45)">
+      <g transform="translate(200, 220) rotate(-45)">
         {/* Spoon */}
-        <path d="M-10 0 L-10 70 Q-10 85, 0 85 Q10 85, 10 70 L10 0 Z" fill="#F3CD57" />
-        <ellipse cx="0" cy="-30" rx="25" ry="40" fill="#F3CD57" />
+        <path d="M-8 10 L-8 60 Q-8 75, 0 75 Q8 75, 8 60 L8 10 Z" fill="#F3CD57" />
+        <ellipse cx="0" cy="-20" rx="22" ry="35" fill="#F3CD57" />
         {/* Fork */}
         <g transform="rotate(90)">
-          <path d="M-10 0 L-10 70 Q-10 85, 0 85 Q10 85, 10 70 L10 0 Z" fill="#F3CD57" />
-          <path d="M-20 -40 L-20 0 L20 0 L20 -40 L12 -40 L12 -10 L4 -10 L4 -40 L-4 -40 L-4 -10 L-12 -10 L-12 -40 Z" fill="#F3CD57" />
+          <path d="M-8 10 L-8 60 Q-8 75, 0 75 Q8 75, 8 60 L8 10 Z" fill="#F3CD57" />
+          <path d="M-18 -35 L-18 0 L18 0 L18 -35 L12 -35 L12 -10 L4 -10 L4 -35 L-4 -35 L-4 -10 L-12 -10 L-12 -35 Z" fill="#F3CD57" />
         </g>
       </g>
 
-      {/* Tomato */}
-      <g className="animate-float">
-        <circle cx="310" cy="180" r="35" fill="#D32F2F" />
-        <path d="M310 145 L300 155 M310 145 L320 155 M310 145 L310 160" stroke="#2E7D32" strokeWidth="6" strokeLinecap="round" />
-        <ellipse cx="325" cy="170" rx="8" ry="12" fill="white" fillOpacity="0.3" />
+      {/* Tomato - Top Right */}
+      <g className="animate-float" transform="translate(320, 160)">
+        <circle cx="0" cy="0" r="35" fill="#D32F2F" />
+        <path d="M0 -35 L-10 -25 M0 -35 L10 -25 M0 -35 L0 -20" stroke="#2E7D32" strokeWidth="6" strokeLinecap="round" />
+        <ellipse cx="15" cy="-10" rx="8" ry="12" fill="white" fillOpacity="0.3" />
       </g>
 
-      {/* Egg */}
-      <g className="animate-float-delayed">
-        <ellipse cx="90" cy="320" rx="30" ry="25" fill="#FFB74D" />
-        <ellipse cx="80" cy="310" rx="8" ry="12" fill="white" fillOpacity="0.4" />
+      {/* Egg - Bottom Left */}
+      <g className="animate-float-delayed" transform="translate(80, 320)">
+        <ellipse cx="0" cy="0" rx="35" ry="30" fill="#FFB74D" />
+        <ellipse cx="-10" cy="-10" rx="10" ry="15" fill="white" fillOpacity="0.4" />
         {/* Speed lines */}
-        {/* Fix duplicate y1 attribute by changing second occurrence to y2 */}
-        <line x1="130" y1="310" x2="160" y2="310" stroke="white" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.5" />
-        {/* Fix duplicate y1 attribute by changing second occurrence to y2 */}
-        <line x1="135" y1="320" x2="165" y2="320" stroke="white" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.5" />
-        {/* Fix duplicate y1 attribute by changing second occurrence to y2 */}
-        <line x1="130" y1="330" x2="155" y2="330" stroke="white" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.5" />
+        <line x1="40" y1="-10" x2="80" y2="-10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeOpacity="0.6" />
+        <line x1="45" y1="5" x2="85" y2="5" stroke="white" strokeWidth="3" strokeLinecap="round" strokeOpacity="0.6" />
       </g>
 
-      {/* Curved Text */}
+      {/* Curved Text Path - Fixed Radius to prevent overlapping */}
       <defs>
-        <path id="curve" d="M100,240 A100,100 0 0,1 300,240" />
+        {/* Path diameter is slightly larger than the circle (r=130) */}
+        <path id="logoPath" d="M 70,220 A 130,130 0 0,1 330,220" />
       </defs>
-      <text className="bangers text-5xl" fill="#9A1B1B">
-        <textPath href="#curve" startOffset="50%" textAnchor="middle" letterSpacing="8">
+      <text fill="#9A1B1B" className="bangers" style={{ fontSize: '42px', fontWeight: 'bold' }}>
+        <textPath href="#logoPath" startOffset="50%" textAnchor="middle">
           WILD KITCHEN
         </textPath>
       </text>
