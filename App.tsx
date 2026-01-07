@@ -311,32 +311,62 @@ const App: React.FC = () => {
   // --- RENDERING ---
 
   if (status === "LOBBY") return (
-    <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center text-white p-6 relative">
-      <h1 className="bangers text-[12rem] text-orange-500 animate-glitch mb-2">WILD KITCHEN</h1>
-      <p className="bangers text-3xl text-zinc-500 mb-12 tracking-widest">ONLINE MULTIPLAYER WAR</p>
-      <div className="flex flex-col gap-6 w-full max-sm px-6">
-        <button onClick={initHost} className="bg-orange-600 bangers text-4xl py-6 rounded-full hover:bg-white hover:text-black transition-all">CREATE KITCHEN</button>
-        <div className="h-px bg-white/10 my-4" />
-        <input 
-          type="text" 
-          placeholder="ENTER ROOM CODE..." 
-          className="bg-zinc-900 border-2 border-white/10 rounded-full px-8 py-4 text-center bangers text-2xl outline-none focus:border-orange-500 transition-all text-white"
-          value={roomIdInput}
-          onChange={(e) => setRoomIdInput(e.target.value)}
-        />
-        <button onClick={initJoin} className="bg-white text-black bangers text-4xl py-6 rounded-full hover:bg-orange-600 hover:text-white transition-all">JOIN WAR</button>
+    <div className="min-h-screen bg-[#f3cd57] flex flex-col items-center justify-center text-white p-6 relative overflow-hidden">
+      {/* Visual background elements */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+        <div className="absolute top-10 left-10 text-9xl">🍳</div>
+        <div className="absolute bottom-10 right-10 text-9xl">🔥</div>
+        <div className="absolute top-1/2 left-20 text-7xl">🍅</div>
+        <div className="absolute bottom-1/4 right-32 text-8xl">🥚</div>
+      </div>
+
+      <div className="z-10 flex flex-col items-center animate-fade-in text-center">
+        {/* New Logo Placeholder - User can replace with actual image file */}
+        <div className="relative mb-8 group">
+          <div className="w-80 h-80 rounded-full border-8 border-[#9a1b1b] bg-[#fcd34d] flex items-center justify-center shadow-[0_20px_60px_rgba(154,27,27,0.4)] overflow-hidden relative">
+             {/* Descriptive stylized representation of the logo provided in the image */}
+             <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-56 h-56 bg-[#9a1b1b] rounded-full flex items-center justify-center border-4 border-[#fcd34d]">
+                  <span className="text-9xl group-hover:scale-110 transition-transform">🍴</span>
+                </div>
+             </div>
+             <div className="absolute -top-4 -left-4 text-7xl transform -rotate-12">👨‍🍳</div>
+             <div className="absolute top-4 right-4 text-6xl">🍅</div>
+             <div className="absolute bottom-4 left-4 text-6xl transform rotate-45">🥚</div>
+             <div className="absolute bottom-0 w-full py-4 bg-[#9a1b1b]/90 text-white font-black bangers text-3xl tracking-tighter uppercase italic">WILD KITCHEN</div>
+          </div>
+        </div>
+
+        <p className="bangers text-4xl text-[#9a1b1b] mb-12 tracking-widest drop-shadow-md italic">kitchen that stay wild</p>
+        
+        <div className="flex flex-col gap-6 w-full max-w-sm px-6">
+          <button onClick={initHost} className="bg-[#9a1b1b] bangers text-4xl py-6 rounded-full hover:bg-white hover:text-[#9a1b1b] transition-all shadow-xl transform hover:scale-105 active:scale-95 border-b-8 border-[#631111]">CREATE KITCHEN</button>
+          <div className="flex items-center gap-4">
+            <div className="h-px flex-1 bg-[#9a1b1b]/30" />
+            <span className="bangers text-[#9a1b1b]/50">OR</span>
+            <div className="h-px flex-1 bg-[#9a1b1b]/30" />
+          </div>
+          <input 
+            type="text" 
+            placeholder="ENTER ROOM CODE..." 
+            className="bg-white/90 border-4 border-[#9a1b1b]/20 rounded-full px-8 py-4 text-center bangers text-2xl outline-none focus:border-[#9a1b1b] transition-all text-[#9a1b1b] shadow-inner"
+            value={roomIdInput}
+            onChange={(e) => setRoomIdInput(e.target.value)}
+          />
+          <button onClick={initJoin} className="bg-white text-[#9a1b1b] bangers text-4xl py-6 rounded-full hover:bg-[#9a1b1b] hover:text-white transition-all shadow-xl transform hover:scale-105 active:scale-95 border-b-8 border-gray-200">JOIN WAR</button>
+        </div>
       </div>
     </div>
   );
 
   if (status === "WAITING") return (
-    <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center text-white p-6">
-      <h2 className="bangers text-4xl text-zinc-500 mb-4 uppercase tracking-widest">WAITING FOR CHEF...</h2>
-      <div className="bg-zinc-900 p-10 rounded-[3rem] border-2 border-orange-500 text-center animate-pulse">
-        <p className="text-xs font-black uppercase tracking-widest text-zinc-500 mb-2">ROOM CODE</p>
-        <h1 className="bangers text-7xl text-white select-all">{peer?.id}</h1>
+    <div className="min-h-screen bg-[#f3cd57] flex flex-col items-center justify-center text-[#9a1b1b] p-6">
+      <h2 className="bangers text-4xl mb-4 uppercase tracking-widest opacity-70">WAITING FOR CHEF...</h2>
+      <div className="bg-white p-10 rounded-[3rem] border-4 border-[#9a1b1b] text-center animate-pulse shadow-2xl">
+        <p className="text-xs font-black uppercase tracking-widest text-[#9a1b1b]/50 mb-2">ROOM CODE</p>
+        <h1 className="bangers text-7xl text-[#9a1b1b] select-all tracking-tighter">{peer?.id}</h1>
       </div>
-      <p className="mt-8 text-zinc-600 text-[10px] font-bold uppercase tracking-widest">Give this code to your friend</p>
+      <p className="mt-8 text-[#9a1b1b]/60 text-[12px] font-black uppercase tracking-widest">Give this code to your rival chef</p>
     </div>
   );
 
