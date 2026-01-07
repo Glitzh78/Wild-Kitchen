@@ -9,86 +9,6 @@ import { CookingArea } from './components/CookingArea';
 const INITIAL_HAND_SIZE = 4;
 const DRAW_COOLDOWN_MS = 3000;
 
-const Logo = () => (
-  <div className="relative w-[400px] h-[400px] flex items-center justify-center animate-bounce-slow">
-    <svg viewBox="0 0 400 400" className="w-full h-full drop-shadow-2xl">
-      {/* 1. CHEF HAT (Top) */}
-      <g transform="translate(130, 20) scale(0.8) rotate(-5)">
-        <path 
-          d="M20 100 C20 40, 50 20, 90 20 C130 20, 160 40, 160 100 L160 130 L20 130 Z" 
-          fill="none" 
-          stroke="#9A1B1B" 
-          strokeWidth="12" 
-          strokeLinecap="round"
-        />
-        <path 
-          d="M35 130 Q35 100, 60 100 T90 100 T120 100 T145 130" 
-          fill="none" 
-          stroke="#9A1B1B" 
-          strokeWidth="10" 
-        />
-      </g>
-      
-      {/* 2. MAIN RED CIRCLE */}
-      <circle cx="200" cy="210" r="105" fill="#9A1B1B" />
-      <circle cx="200" cy="210" r="95" fill="none" stroke="#631111" strokeWidth="2" strokeDasharray="8,5" />
-      
-      {/* 3. SPOON & FORK (Crossed) */}
-      <g transform="translate(200, 210)">
-        {/* Spoon: Head Top-Left, Handle Bottom-Right */}
-        <g transform="rotate(-45)">
-          <path d="M-8 0 L-8 90 Q-8 105, 0 105 Q8 105, 8 90 L8 0 Z" fill="#F3CD57" />
-          <ellipse cx="0" cy="-35" rx="28" ry="45" fill="#F3CD57" />
-        </g>
-        {/* Fork: Head Top-Right, Handle Bottom-Left */}
-        <g transform="rotate(45)">
-          <path d="M-8 0 L-8 90 Q-8 105, 0 105 Q8 105, 8 90 L8 0 Z" fill="#F3CD57" />
-          <path d="M-22 -45 L-22 0 L22 0 L22 -45 L14 -45 L14 -15 L6 -15 L6 -45 L-6 -45 L-6 -15 L-14 -15 L-14 -45 Z" fill="#F3CD57" />
-        </g>
-      </g>
-
-      {/* 4. TOMATO (Right Side) */}
-      <g className="animate-float" transform="translate(340, 180) rotate(15)">
-        <circle cx="0" cy="0" r="40" fill="#D32F2F" />
-        {/* Leaves */}
-        <path d="M0 -40 L-15 -25 M0 -40 L15 -25 M0 -40 L0 -20" stroke="#2E7D32" strokeWidth="10" strokeLinecap="round" />
-        {/* Highlight */}
-        <ellipse cx="20" cy="-15" rx="12" ry="18" fill="white" fillOpacity="0.3" />
-      </g>
-
-      {/* 5. EGG (Bottom Left Side) */}
-      <g className="animate-float-delayed" transform="translate(60, 320)">
-        <ellipse cx="0" cy="0" rx="40" ry="35" fill="#FFB74D" />
-        <ellipse cx="-15" cy="-15" rx="12" ry="20" fill="white" fillOpacity="0.4" />
-        {/* Speed lines */}
-        <line x1="50" y1="-10" x2="110" y2="-10" stroke="white" strokeWidth="4" strokeLinecap="round" strokeOpacity="0.4" />
-        <line x1="55" y1="10" x2="115" y2="10" stroke="white" strokeWidth="4" strokeLinecap="round" strokeOpacity="0.4" />
-        <line x1="50" y1="30" x2="100" y2="30" stroke="white" strokeWidth="4" strokeLinecap="round" strokeOpacity="0.4" />
-      </g>
-
-      {/* 6. TEXT PATHS (Separate for Left and Right) */}
-      <defs>
-        {/* Left Side Path for "WILD" */}
-        <path id="pathWild" d="M 60,320 A 150,150 0 0,1 120,100" />
-        {/* Right Side Path for "KITCHEN" */}
-        <path id="pathKitchen" d="M 280,100 A 150,150 0 0,1 340,320" />
-      </defs>
-
-      <text fill="#9A1B1B" className="bangers" style={{ fontSize: '54px', fontWeight: '900' }}>
-        <textPath href="#pathWild" startOffset="50%" textAnchor="middle">
-          WILD
-        </textPath>
-      </text>
-
-      <text fill="#9A1B1B" className="bangers" style={{ fontSize: '54px', fontWeight: '900' }}>
-        <textPath href="#pathKitchen" startOffset="50%" textAnchor="middle">
-          KITCHEN
-        </textPath>
-      </text>
-    </svg>
-  </div>
-);
-
 type GameAction = 
   | { type: 'SYNC_STATE', state: GameState }
   | { type: 'DRAW', playerId: number, cards: Card[] }
@@ -368,8 +288,8 @@ const App: React.FC = () => {
       </div>
 
       <div className="z-10 flex flex-col items-center animate-fade-in text-center scale-90 md:scale-100">
-        <Logo />
-        <p className="font-medium text-[#9A1B1B] text-2xl mt-4 mb-12 tracking-wide italic lowercase">kitchen that stay wild</p>
+        <h1 className="bangers text-[120px] text-[#9A1B1B] leading-tight drop-shadow-2xl">WILD KITCHEN</h1>
+        <p className="font-medium text-[#9A1B1B] text-2xl mt-0 mb-12 tracking-wide italic lowercase">kitchen that stay wild</p>
         
         <div className="flex flex-col gap-6 w-full max-w-sm px-6">
           <button onClick={initHost} className="bg-[#9A1B1B] bangers text-4xl py-6 rounded-full hover:bg-white hover:text-[#9A1B1B] transition-all shadow-xl transform hover:scale-105 active:scale-95 border-b-8 border-[#631111]">CREATE KITCHEN</button>
@@ -390,12 +310,8 @@ const App: React.FC = () => {
       </div>
 
       <style>{`
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        @keyframes float-delayed { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes bounce-slow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        .animate-float-delayed { animation: float-delayed 4s ease-in-out infinite; }
-        .animate-bounce-slow { animation: bounce-slow 5s ease-in-out infinite; }
+        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+        .animate-fade-in { animation: fade-in 0.5s ease-out; }
       `}</style>
     </div>
   );
